@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  git-track:
+    restart: always
+    container_name: git_track
+    build:
+      context: .
+      network: host
+      dockerfile: ./docker/dev/Dockerfile
+    entrypoint: /usr/src/app/entrypoint-local.sh
+    volumes:
+      - .:/usr/src/app
+      - static_volume:/usr/src/app/static/
+      - media_volume:/usr/app/media/
+    env_file:
+      - .env.development
+    ports:
+      - "8004:8004"
+
+
+volumes:
+  static_volume:
+  media_volume:
